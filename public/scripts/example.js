@@ -29,6 +29,7 @@ var Comment = React.createClass({
 });
 
 var CommentBox = React.createClass({
+
   loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -42,6 +43,7 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     // Optimistically set an id on the new comment. It will be replaced by an
@@ -64,13 +66,16 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  
   getInitialState: function() {
     return {data: []};
   },
+  
   componentDidMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
+  
   render: function() {
     return (
       <div className="commentBox">
@@ -80,6 +85,7 @@ var CommentBox = React.createClass({
       </div>
     );
   }
+
 });
 
 var CommentList = React.createClass({
