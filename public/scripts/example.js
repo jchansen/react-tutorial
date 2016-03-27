@@ -61,6 +61,12 @@ var CommentBox = React.createClass({
 
 });
 
+module.exports = connect(function(state) {
+  return {
+    comments: state.comments
+  }
+}, CommentBox);
+
 var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment) {
