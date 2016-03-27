@@ -30,30 +30,19 @@ var Comment = React.createClass({
 
 var CommentBox = React.createClass({
 
-  updateState: function() {
-    this.setState({
-      data: store.comments
-    })
+  propTypes: {
+    comments: React.PropTypes.array.isRequired
   },
   
   handleCommentSubmit: function(comment) {
     actions.submitComment(comment);
   },
   
-  getInitialState: function() {
-    return {data: []};
-  },
-  
-  componentDidMount: function() {
-    store.subscribe(this.updateState);
-    actions.loadCommentsFromServer();
-  },
-  
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.state.data} />
+        <CommentList data={this.props.comments} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
