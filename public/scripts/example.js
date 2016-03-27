@@ -30,22 +30,14 @@ var Comment = React.createClass({
 
 var CommentBox = React.createClass({
 
-  loadCommentsFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+  updateState: function() {
+    this.setState({
+      data: store.comments
+    })
   },
   
   handleCommentSubmit: function(comment) {
-    ...
+    actions.submitComment(comment);
   },
   
   getInitialState: function() {
@@ -53,8 +45,8 @@ var CommentBox = React.createClass({
   },
   
   componentDidMount: function() {
-    this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    store.subscribe(this.updateState);
+    actions.loadCommentsFromServer();
   },
   
   render: function() {
